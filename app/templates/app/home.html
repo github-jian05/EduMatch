@@ -2,12 +2,15 @@
 {%load static%}
 {% block content %}
 <body>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="{%url 'home'%}">Home</a></li>
-      <li><a href="{%url 'about'%}">About Me</a></li>
-    </ul>
-  </nav>
+ <nav>
+  <ul class="nav-links">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'about' %}">About Me</a></li>
+    <li><a href="{% url 'commission-list' %}">Commissions</a></li>
+    <li><a href="{% url 'commission-create' %}">Create Commission</a></li>
+  </ul>
+</nav>
+
   <div class="hehe">
     <h1>Welcome to My Page</h1>
     <img class="profile-image" src="{%static 'images/forindex.jpg'%}">

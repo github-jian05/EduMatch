@@ -1,0 +1,9 @@
+<h1>Commissions</h1>
+<ul>
+  {% for commission in object_list %}
+    <li>
+      <a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'commission-create' %}">Create New Commission</a>
