@@ -6,4 +6,27 @@
     </li>
   {% endfor %}
 </ul>
-<a href="{% url 'commission-create' %}">Create New Commission</a>
+<a href="{% url 'create_commission' %}">Create New Commission</a>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for commission in object_list %}
+    <tr>
+      <td>{{ commission.title }}</td>
+      <td>
+        <a href="{{ commission.get_absolute_url }}">View</a>
+        <a href="{% url 'commission-update' commission.id %}">Edit</a>
+        <form action="{% url 'commission-delete' commission.id %}" method="POST" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

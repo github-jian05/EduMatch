@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.urls import reverse
+from django.conf import settings
 
 
 class CustomUser(AbstractUser):
@@ -25,20 +27,22 @@ class Profile(models.Model):
 
 
 class Commission(models.Model):
-    commissioner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, limit_choices_to={'user_type': 'commissioner'})
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    commissioner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,  # Custom User model reference
+        on_delete=models.CASCADE,
+        related_name='commissions_created'
+    )
     title = models.CharField(max_length=150)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
-    students_interested = models.ManyToManyField(
-        CustomUser,
-        related_name='interested_commissions',
-        blank=True,
-        limit_choices_to={'user_type': 'student'}
-    )
 
-    def __str__(self):
-        return self.title
+    def get_absolute_url(self):
+        # Generates the appropriate detail URL for this Commission instance
+        return reverse('commission-detail', args=[self.pk])
+    # Other fields...from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class Request(models.Model):

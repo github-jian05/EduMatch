@@ -1,6 +1,9 @@
 
 from pathlib import Path
 
+LOGIN_URL = '/accounts/login/'  # Replace with the actual login URL
+AUTH_USER_MODEL = 'app.CustomUser'  # Replace `my_app` and `CustomUser` with your app and model name.
+
 # Build paths inside the MyProject like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
