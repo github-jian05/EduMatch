@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}"> <!-- Link your CSS -->
+</head>
+<body>
+    <div class="signup-container"> <!-- Add a container for signup -->
+        {% block content %}
+        <h2>Sign Up Here!</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Renders fields for the sign-up form -->
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <p>
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+        </p>
+        {% endblock %}
+    </div>
+</body>
+</html>

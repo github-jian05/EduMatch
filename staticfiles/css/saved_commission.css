@@ -1,0 +1,120 @@
+/* General Page Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Light background color */
+    margin: 0;
+    padding: 0;
+}
+
+.saved-commissions-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Title */
+.saved-commissions-container h1 {
+    text-align: center;
+    color: #007bff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+}
+
+/* Back to Dashboard Button */
+.back-to-dashboard {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.btn-back {
+    text-decoration: none;
+    background-color: #007bff; /* Button blue color */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Commissions List */
+.commission-list {
+    list-style: none;
+    padding: 0;
+}
+
+.commission-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #f7f7f7;
+    transition: background-color 0.3s ease;
+}
+
+.commission-item:hover {
+    background-color: #f0f0f0; /* Subtle hover effect */
+}
+
+/* Commission Info */
+.commission-info {
+    max-width: 70%;
+}
+
+.commission-title {
+    font-size: 1.2rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.commission-title:hover {
+    text-decoration: underline;
+}
+
+.commission-description {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 5px;
+    line-height: 1.6;
+}
+
+/* Unsave Form and Button */
+.unsave-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-remove {
+    background-color: #dc3545; /* Red for remove button */
+    color: white;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-remove:hover {
+    background-color: #a71d2a; /* Darker red on hover */
+}
+
+/* No Saved Commissions */
+.no-commissions {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin: 20px 0;
+}

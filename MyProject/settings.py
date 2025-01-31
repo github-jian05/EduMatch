@@ -1,11 +1,23 @@
-
+import os
 from pathlib import Path
 
-LOGIN_URL = '/accounts/login/'  # Replace with the actual login URL
-AUTH_USER_MODEL = 'app.CustomUser'  # Replace `my_app` and `CustomUser` with your app and model name.
-
-# Build paths inside the MyProject like this: BASE_DIR / 'subdir'.
+# Define BASE_DIR first
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Login/Logout redirects
+LOGIN_URL = '/login/'  # Replace with the actual login URL
+LOGIN_REDIRECT_URL = 'dashboard'  # Redirect to the home page after login
+LOGOUT_REDIRECT_URL = 'logout'  # Redirect users to the home page after logout
+
+# Custom User Model
+AUTH_USER_MODEL = 'app.CustomUser'  # Replace `app` and `CustomUser` with your app and model name.
+
+# Media Configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
@@ -47,7 +59,7 @@ ROOT_URLCONF = 'MyProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'app/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,3 +126,5 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoMyProject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

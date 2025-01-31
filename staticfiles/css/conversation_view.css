@@ -1,0 +1,95 @@
+/* Ensure HTML and body take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the conversation container in the middle of the screen */
+.detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Prevent any overflow issues */
+    margin: 0;
+    padding: 0;
+}
+
+.detail-wrapper {
+    background: #fff;
+    max-width: 600px; /* A fixed maximum width to control layout */
+    max-height: 90vh; /* Prevent it from exceeding the viewport height */
+    width: auto; /* Allow natural width, prevent full page width issues */
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Make sure wrapper stays horizontally centered */
+    height: auto; /* Allow dynamic height from content */
+    box-sizing: border-box;
+}
+
+/* Center the heading */
+.detail-header {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center; /* Center-align the conversation title */
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Chat History */
+#chat-history {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;          /* Space between messages */
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-height: 300px;  /* Limit the height, scrollable if needed */
+    overflow-y: auto;   /* Add vertical scrollbar if content overflows */
+    margin-bottom: 10px;
+}
+
+/* Reply Form */
+form.reply-form {
+    display: flex;
+    flex-direction: column; /* Stack the textarea and button */
+    gap: 10px;
+}
+
+form.reply-form textarea {
+    width: 100%;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    resize: vertical;
+}
+
+form.reply-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form.reply-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .detail-container {
+        height: auto; /* Auto height for better space usage */
+        padding: 20px; /* Add padding for smaller screens */
+    }
+
+    .detail-wrapper {
+        max-width: 90%; /* Use most of the screen width */
+    }
+}

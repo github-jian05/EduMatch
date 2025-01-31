@@ -1,7 +1,141 @@
-<h1>{{ object.title }}</h1>
-<p>{{ object.description }}</p>
-<p>Price: ${{ object.price }}</p>
-<p>Created at: {{ object.created_at }}</p>
-<a href="{% url 'commission-update' object.pk %}">Edit</a>
-<a href="{% url 'commission-delete' object.pk %}">Delete</a>
-<a href="{% url 'commission_list' %}">Back to List</a>
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/commission_details.css' %}">
+<div class="detail-container">
+    <div class="detail-wrapper">
+        <!-- Display Django Messages (Success/Error Notifications) -->
+        {% if messages %}
+            <div class="messages mb-4">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Content Section -->
+        <h1 class="detail-header">{{ commission.title }}</h1>
+
+        <div class="detail-body">
+            <p><strong>Posted by:</strong> {{ commission.commissioner.username }}</p>
+            <p><strong>Description:</strong> {{ commission.description }}</p>
+            <p><strong>Price:</strong> ${{ commission.price }}</p>
+            <p><strong>Available:</strong> {{ commission.available|yesno:"Yes,No" }}</p>
+
+            <!-- Avail button for Students -->
+            {% if show_avail_button %}
+                <form method="post" action="{% url 'avail-commission' commission.pk %}" class="mt-3">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Avail This Commission</button>
+                </form>
+            {% else %}
+                <p class="text-danger mt-3"><strong>Note:</strong> This commission is not available for availing.</p>
+            {% endif %}
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section mt-5">
+            <h2>Comments</h2>
+
+            {% for comment in comments %}
+                <div class="comment-box">
+                    <p><strong>{{ comment.commenter.username }}:</strong></p>
+
+                    <!-- Comment Content Section -->
+                    <div id="comment-content-{{ comment.id }}" class="comment-content">
+                        <p>{{ comment.content }}</p>
+                        <p><small>Posted at {{ comment.created_at }}</small></p>
+                    </div>
+
+                    <!-- Inline Edit Form (hidden by default) -->
+                    <form id="edit-form-{{ comment.id }}" method="post" action="{% url 'update-comment' comment.id %}" class="edit-form">
+                        {% csrf_token %}
+                        <textarea name="content" rows="3" required>{{ comment.content }}</textarea>
+                        <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        <button type="button" onclick="toggleEditForm('{{ comment.id }}')" class="btn btn-secondary btn-sm">Cancel</button>
+                    </form>
+
+                    <!-- Three-Dots Menu for Edit/Delete -->
+                    {% if comment.commenter == request.user %}
+                        <div class="dropdown edit-delete-menu">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton{{ comment.id }}" data-bs-toggle="dropdown" aria-expanded="false">...</button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ comment.id }}">
+                                <li>
+                                    <button class="dropdown-item" onclick="toggleEditForm('{{ comment.id }}')">Edit</button>
+                                </li>
+                                <li>
+                                    <form method="post" action="{% url 'delete-comment' comment.id %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item text-danger">Delete</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <!-- Reply Form -->
+                    <button type="button" class="btn btn-link btn-sm reply-toggle" onclick="document.getElementById('reply-form-{{ comment.id }}').style.display='block'">Reply</button>
+                    <form id="reply-form-{{ comment.id }}" method="post" action="{% url 'add-comment' commission.pk %}" class="reply-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                        <textarea name="content" rows="2" placeholder="Write your reply..." required></textarea>
+                        <button type="submit" class="btn btn-primary btn-sm">Submit Reply</button>
+                    </form>
+
+                    <!-- Nested Replies -->
+                    {% with comment.replies.all|default_if_none:'' as replies %}
+                        {% if replies %}
+                            <div class="nested-replies">
+                                {% for reply in replies %}
+                                    <div class="reply-box">
+                                        <p><strong>{{ reply.commenter.username }}:</strong></p>
+                                        <p>{{ reply.content }}</p>
+                                        <p><small>Posted at {{ reply.created_at }}</small></p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            {% empty %}
+                <p>No comments yet. Be the first to comment!</p>
+            {% endfor %}
+        </div>
+
+        <!-- Add Comment Section -->
+        <div class="add-comment mt-4">
+            <h3>Add a New Comment</h3>
+            <form method="post" action="{% url 'add-comment' commission.pk %}">
+                {% csrf_token %}
+                <textarea name="content" rows="4" placeholder="Write your comment here..." required></textarea>
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
+            </form>
+        </div>
+
+        <!-- Back to List Button -->
+        <div class="back-to-list mt-4">
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">← Back </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Toggle the Edit Form for Inline Editing
+    function toggleEditForm(commentId) {
+        const contentDiv = document.getElementById(`comment-content-${commentId}`);
+        const editForm = document.getElementById(`edit-form-${commentId}`);
+
+        // Show/Hide edit form and comment content
+        if (editForm.style.display === 'none') {
+            editForm.style.display = 'block';  // Show the edit form
+            contentDiv.style.display = 'none';  // Hide the comment content
+        } else {
+            editForm.style.display = 'none';  // Hide the edit form
+            contentDiv.style.display = 'block';  // Show the comment content
+        }
+    }
+</script>
+{% endblock %}

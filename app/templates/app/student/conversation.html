@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+{% block title %}Conversation with {{ recipient.user.username }}{% endblock %}
+
+{% block content %}
+    <div class="conversation-container">
+        <h1 class="conversation-header">Conversation with {{ recipient.user.username }}</h1>
+
+        <!-- Chat History -->
+        <div id="chat-history">
+            {% for message in chat_messages %}
+                <div class="chat-message {% if message.sender == request.user %}sent-message{% else %}received-message{% endif %}">
+                    <div class="message-header">
+                        <strong>{{ message.sender.username }}</strong>
+                        <small class="timestamp">{{ message.timestamp|date:"M d, Y H:i" }}</small>
+                    </div>
+                    <div class="message-content">
+                        <p>{{ message.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Reply Form -->
+        <form method="post" class="message-form">
+            {% csrf_token %}
+            <textarea name="content" placeholder="Type your message here..." rows="4" class="form-control"></textarea>
+            <button type="submit" class="btn btn-primary">Send Reply</button>
+        </form>
+    </div>
+{% endblock %}

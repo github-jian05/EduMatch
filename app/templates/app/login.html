@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"> <!-- Link to external CSS -->
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }} <!-- Display form fields with errors, if any -->
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Sign Up here</a>.</p>
+        <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
+    </div>
+</body>
+</html>

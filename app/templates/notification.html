@@ -1,0 +1,19 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+    <h1>Your Notifications</h1>
+    <ul>
+        {% for notification in notifications %}
+            <li>
+                {{ notification.message }} - {{ notification.created_at|date:"M d, Y H:i" }}
+                {% if not notification.is_read %}
+                    <strong>(Unread)</strong>
+                {% endif %}
+            </li>
+        {% empty %}
+            <p>No notifications found.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

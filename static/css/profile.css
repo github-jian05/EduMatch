@@ -1,0 +1,234 @@
+/* Container styling for the entire profile page */
+.profile-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff; /* Matches previous styling */
+    border: 1px solid #ddd; /* Subtle border for consistency */
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Smooth shadow for a modern look */
+}
+
+/* Welcome header section */
+.profile-header {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Profile picture styles */
+.profile-picture-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    transition: transform 0.2s ease-in-out;
+}
+.profile-picture:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+.modal-profile-picture {
+    width: 100%;
+    height: auto;
+}
+.modal-header .close {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+}
+
+/* Profile details section */
+.profile-details {
+    margin-top: 20px;
+    color: #555; /* Subtle text color */
+    line-height: 1.6; /* Consistent spacing */
+}
+.details-header {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+/* Navigation Buttons */
+.profile-navigation {
+    text-align: center;
+    margin-top: 25px;
+}
+.profile-navigation .btn {
+    padding: 10px 15px;
+    width: 85%; /* Keep buttons uniform */
+    margin-bottom: 10px;
+}
+
+/* Profile actions (Edit, Delete) */
+.profile-actions {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.profile-actions .btn {
+    width: 45%; /* Keep buttons larger for easy clicking */
+}
+
+/* Logout button */
+.logout-container {
+    text-align: center;
+    margin-top: 15px;
+}
+.logout-container .btn {
+    width: 85%; /* Consistent with navigation buttons */
+}
+/* Commissioners Profile Layout */
+.commissioner-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 100px); /* Adjust for header/footer */
+    background: #f8f9fa; /* Light gray background */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.commissioner-profile-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Profile Header Section */
+.profile-header-section {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between profile picture and details */
+}
+
+.profile-picture img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 3px solid #007bff; /* Adds a blue border to make it stand out */
+}
+
+.profile-info {
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.profile-info h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: #333;
+}
+
+.profile-info .profile-bio {
+    font-style: italic;
+    margin-top: 8px;
+    color: #555;
+}
+
+/* Details Section */
+.profile-details {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.profile-details h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #007bff;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.profile-details p {
+    margin: 8px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.profile-details p strong {
+    color: #555;
+}
+
+/* Send Message Section */
+.send-message-section {
+    text-align: left;
+}
+
+.send-message-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #007bff;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.send-message-section p {
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 1rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn:active {
+    background-color: #003f7f;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .profile-header-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-info {
+        text-align: center;
+    }
+}

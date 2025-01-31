@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Commissioner Profile{% endblock %}
+
+{% block content %}
+<!-- Link to the CSS file -->
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="commissioner-profile-container">
+    <div class="commissioner-profile-section">
+        <!-- Profile Header Section -->
+        <div class="profile-header-section">
+            <div class="profile-picture">
+                <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}">
+            </div>
+            <div class="profile-info">
+                <h1>{{ profile.user.username }}</h1>
+                {% if profile.bio %}
+                    <p class="profile-bio">{{ profile.bio }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+
+        <!-- Profile Details -->
+        <div class="profile-details">
+            <h2>Details</h2>
+            <p><strong>Expertise:</strong> {{ profile.expertise|default:"N/A" }}</p>
+            <p><strong>Contact Info:</strong> {{ profile.contact_info|default:"N/A" }}</p>
+        </div>
+
+        <!-- Send Message Section -->
+        <div class="send-message-section">
+            <h2>Send a Message</h2>
+            <p>Have inquiries for {{ profile.user.username }}? Send them a quick message!</p>
+            <form method="post" action="{% url 'send-message' profile.user.pk %}">
+                {% csrf_token %}
+                <textarea name="content" placeholder="Type your message here..." rows="4" required></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

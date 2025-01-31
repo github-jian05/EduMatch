@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}'s Profile</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}"> <!-- External Profile Styles -->
+</head>
+<body>
+    <div class="container profile-container">
+        <!-- Welcome Section -->
+        <h1 class="profile-header">Welcome, {{ user.username }}!</h1>
+
+        <!-- Profile Picture -->
+        <div class="profile-picture-container">
+            {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}'s Profile Picture" class="profile-picture">
+            {% else %}
+                <img src="{% static 'profile_pictures/default.jpg' %}" alt="Default Profile Picture" class="profile-picture">
+            {% endif %}
+        </div>
+
+        <!-- Profile Details -->
+        <div class="profile-details">
+            <h2 class="details-header">Profile Details</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Role:</strong> {{ user.role }}</p>
+            <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+            <p><strong>Last Login:</strong> {{ user.last_login|date:"F d, Y H:i" }}</p>
+
+            <!-- Additional Fields -->
+            <p><strong>Bio:</strong> {{ profile.bio|default:"Not provided." }}</p>
+            <p><strong>Expertise:</strong> {{ profile.expertise|default:"Not provided." }}</p>
+            <p><strong>Contact Info:</strong> {{ profile.contact_info|default:"Not provided." }}</p>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="profile-navigation">
+            {% if user.role == 'student' %}
+                <a href="{% url 'student-dashboard' %}" class="btn btn-primary">Back to Student Dashboard</a>
+            {% elif user.role == 'commissioner' %}
+                <a href="{% url 'commissioner-dashboard' %}" class="btn btn-primary">Back to Commissioner Dashboard</a>
+            {% endif %}
+        </div>
+
+        <!-- Profile Actions -->
+        <div class="profile-actions">
+            <a href="{% url 'edit_profile' %}" class="btn btn-info">Edit Profile</a>
+            <a href="{% url 'delete_account' %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your profile? This action is irreversible.')">Delete Account</a>
+        </div>
+
+        <!-- Logout Button -->
+        <div class="logout-container">
+            <a href="{% url 'logout' %}" class="btn btn-warning">Logout</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

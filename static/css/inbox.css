@@ -1,0 +1,71 @@
+/* Centered Inbox Container */
+.inbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* Adjust based on header/footer height */
+    background: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.inbox-wrapper {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%; /* Full width for responsiveness */
+    text-align: center;
+}
+
+/* Header Title */
+.inbox-header {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #007bff; /* Match the dashboard theme */
+}
+
+/* List Group Items */
+.list-group-item {
+    text-align: left;
+    padding: 20px;
+    transition: background-color 0.2s ease-in-out;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    font-size: 16px;
+    display: flex; /* Flex to manage layout */
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+/* Conversation Details */
+.conversation-info h5 {
+    font-weight: bold;
+    color: #333;
+}
+
+.conversation-info p {
+    margin: 0;
+    color: #6c757d; /* Muted color for last message */
+    font-size: 0.9rem;
+}
+
+/* Unread Badge */
+.badge {
+    font-size: 1rem;
+    padding: 8px 12px;
+}
+.bg-danger {
+    background-color: #dc3545 !important;
+    color: #fff;
+}
+
+/* No Messages Fallback */
+.no-messages {
+    margin-top: 20px;
+    color: #888;
+    font-style: italic;
+}

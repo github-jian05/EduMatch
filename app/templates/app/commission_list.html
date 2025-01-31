@@ -1,32 +1,65 @@
-<h1>Commissions</h1>
-<ul>
-  {% for commission in object_list %}
-    <li>
-      <a href="{{ commission.get_absolute_url }}">{{ commission.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
-<a href="{% url 'create_commission' %}">Create New Commission</a>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for commission in object_list %}
-    <tr>
-      <td>{{ commission.title }}</td>
-      <td>
-        <a href="{{ commission.get_absolute_url }}">View</a>
-        <a href="{% url 'commission-update' commission.id %}">Edit</a>
-        <form action="{% url 'commission-delete' commission.id %}" method="POST" style="display:inline;">
-          {% csrf_token %}
-          <button type="submit">Delete</button>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Commissions</title>
+    <link rel="stylesheet" href="{% static 'css/commission_list.css' %}">
+</head>
+<body>
+<div class="commission-list-container">
+    <div class="commission-list-wrapper">
+        <h1 class="commission-list-header">Available Commissions</h1>
+
+        <!-- Back to Dashboard Button -->
+        <div class="navigation-link">
+            <a href="{{ user_dashboard_url }}" class="btn btn-primary">← Back to Dashboard</a>
+        </div>
+
+        <!-- Search Bar -->
+        <form method="get" action="" class="search-bar">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search by title or description"
+                value="{{ search_query }}"
+                class="search-input"
+            />
+            <button type="submit" class="btn btn-success">Search</button>
         </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+
+        <!-- Commissions List -->
+        <ul class="commission-list">
+            {% for commission in commissions %}
+                <li class="commission-item">
+                    <a href="{{ commission.get_absolute_url }}" class="commission-title">{{ commission.title }}</a>
+                    <p class="commission-description">{{ commission.description }}</p>
+                    <p class="commission-details">
+                        <em>Price: ${{ commission.price }}</em> | Posted by: {{ commission.commissioner.username }}
+                    </p>
+
+                    <!-- Save/Unsave Buttons -->
+                    <div class="save-actions">
+                        {% if commission in user.student.saved_commissions.all %}
+                            <!-- Unsave Button -->
+                            <form method="post" action="{% url 'unsave_commission' commission.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Unsave</button>
+                            </form>
+                        {% else %}
+                            <!-- Save Button -->
+                            <form method="post" action="{% url 'save_commission' commission.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </li>
+            {% empty %}
+                <p class="no-results">No commissions found matching your search.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</body>
+</html>

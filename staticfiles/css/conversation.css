@@ -1,0 +1,154 @@
+/* Global styles for conversations */
+body {
+    background-color: #F5F5F5; /* Light gray for background across pages */
+    font-family: 'Arial', sans-serif;
+}
+
+.conversation-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff; /* White chat container */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-header {
+    font-size: 1.8rem;
+    color: #007bff; /* Blue header like Facebook tones */
+    border-bottom: 2px solid #EAF2F8;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Chat history container */
+#chat-history {
+    max-height: 400px;
+    overflow-y: auto; /* Scrollable history container */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    scrollbar-width: thin; /* For modern browsers */
+    scrollbar-color: #aaa #ddd; /* Custom scroll bar */
+}
+
+#chat-history::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-history::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 10px;
+}
+
+/* Individual message styles */
+.chat-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.4;
+    position: relative;
+}
+
+/* Sent (user) messages */
+.sent-message {
+    background-color: #EAF2F8; /* Light blue for sent messages */
+    text-align: right;
+    margin-left: auto; /* Align to the right */
+    width: fit-content;
+    max-width: 70%;
+}
+
+/* Received (other user) messages */
+.received-message {
+    background-color: #ffffff; /* White for received messages */
+    border: 1px solid #ddd;
+    text-align: left;
+    margin-right: auto; /* Align to the left */
+    width: fit-content;
+    max-width: 70%;
+}
+
+/* Message header (username and timestamp) */
+.message-header {
+    display: flex;
+    justify-content: space-between; /* Username on left, timestamp on right */
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.message-header strong {
+    font-weight: bold;
+    color: #333; /* Darker tone for usernames */
+}
+
+.message-header .timestamp {
+    font-size: 0.8rem;
+    color: #888;
+    margin-left: 10px;
+}
+
+/* Message content (text bubbles) */
+.message-content p {
+    margin: 5px 0 0 0;
+    line-height: 1.5;
+}
+
+/* Reply Form */
+.message-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-form textarea {
+    resize: vertical;
+    height: 100px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.message-form button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Primary blue button color */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message-form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .conversation-container {
+        padding: 15px;
+    }
+
+    .conversation-header {
+        font-size: 1.5rem;
+    }
+
+    #chat-history {
+        max-height: 300px;
+    }
+
+    .message-form textarea {
+        font-size: 0.9rem;
+    }
+
+    .message-form button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}

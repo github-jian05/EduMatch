@@ -1,0 +1,13 @@
+
+{% block title %}Update Comment{% endblock %}
+
+{% block content %}
+    <h2>Update Your Comment</h2>
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <textarea name="content" rows="4" style="width: 100%; margin-bottom: 10px;">{{ comment.content }}</textarea><br>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ comment.commission.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

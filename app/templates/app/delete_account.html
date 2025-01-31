@@ -1,0 +1,8 @@
+<h1>Delete Your Account</h1>
+<p>Are you sure you want to delete your account? This action is irreversible.</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Delete My Account</button>
+    <a href="{% url 'edit_profile' %}" class="btn btn-secondary">Cancel</a>
+</form>

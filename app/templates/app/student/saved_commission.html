@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Saved Commissions</title>
+    <link rel="stylesheet" href="{% static 'css/saved_commission.css' %}"> <!-- Linking the CSS -->
+</head>
+<body>
+    <div class="saved-commissions-container">
+        <h1>Saved Commissions</h1>
+
+        <!-- Back to Dashboard Button -->
+        <div class="back-to-dashboard">
+            <a href="{% url 'student-dashboard' %}" class="btn-back">Back to Dashboard</a>
+        </div>
+
+        <!-- List of Commissions -->
+        {% if commissions %}
+            <ul class="commission-list">
+                {% for commission in commissions %}
+                    <li class="commission-item">
+                        <div class="commission-info">
+                            <a href="{{ commission.get_absolute_url }}" class="commission-title">{{ commission.title }}</a>
+                            <p class="commission-description">{{ commission.description }}</p>
+                            <p><strong>Price:</strong> ${{ commission.price }}</p>
+                            <p><strong>Commissioner:</strong> {{ commission.commissioner.username }}</p>
+                        </div>
+                        <form method="post" action="{% url 'unsave_commission' commission.id %}" class="unsave-form">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-remove">Remove from Saved</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-commissions">No saved commissions yet!</p>
+        {% endif %}
+    </div>
+</body>
+</html>

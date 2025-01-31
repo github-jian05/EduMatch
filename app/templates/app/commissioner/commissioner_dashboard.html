@@ -1,0 +1,51 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="dashboard-container">
+    <h1>{{ title }}</h1>
+    <h3>Welcome, {{ user.username }}!</h3>
+    <div class="statistics">
+        <h4>Dashboard Statistics:</h4>
+        <ul>
+            <li>Total Commissions: {{ total_commissions }}</li>
+            <li>Total Earnings: ${{ total_earnings }}</li>
+        </ul>
+    </div>
+    <p><a href="{% url 'commission-create'%}">Add Commission</a></p>
+    <div class="commissions">
+        <h4>Your Commissions:</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Available</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commission in commissions %}
+                <tr>
+                    <td data-label="Title">{{ commission.title }}</td>
+                    <td data-label="Description">{{ commission.description|truncatechars:50 }}</td>
+                    <td data-label="Price">${{ commission.price }}</td>
+                    <td data-label="Available">{{ commission.available|yesno:"Yes,No" }}</td>
+                    <td data-label="Created At">{{ commission.created_at|date:"M d, Y" }}</td>
+                    <td data-label="Actions">
+                        <a href="{% url 'commission-update' commission.pk %}">Edit</a> |
+                        <a href="{% url 'commission-delete' commission.pk %}">Delete</a> |
+                        <a href="{% url 'commission-detail' commission.pk %}">View</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No commissions found!</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

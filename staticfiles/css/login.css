@@ -1,0 +1,110 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5; /* Light gray background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Styles for the Login Container */
+.login-container {
+    background-color: #fff; /* White container */
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    padding: 30px;
+    width: 100%;
+    max-width: 400px; /* Responsive width */
+    text-align: center;
+    margin: 20px; /* Add margin for smaller screens */
+}
+
+/* Page Title Styling */
+.login-container h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #1877f2; /* Facebook blue */
+    letter-spacing: -0.5px; /* Slightly tighter letter spacing */
+}
+
+/* Form Styling */
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd; /* Lighter border */
+    border-radius: 6px; /* Slightly more rounded */
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border-color: #1877f2; /* Highlight focus with Facebook blue */
+    outline: none;
+}
+
+/* Submit Button Styling */
+button[type="submit"] {
+    background-color: #1877f2; /* Facebook blue */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+button[type="submit"]:hover {
+    background-color: #155bc1; /* Darker blue on hover */
+}
+
+/* Link to Register */
+.login-container p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.login-container p a {
+    text-decoration: none;
+    color: #1877f2; /* Facebook blue */
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.login-container p a:hover {
+    text-decoration: underline;
+    color: #165dbb; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .login-container h1 {
+        font-size: 24px;
+    }
+
+    form input[type="text"],
+    form input[type="password"] {
+        padding: 10px;
+    }
+
+    button[type="submit"] {
+        padding: 10px;
+    }
+}

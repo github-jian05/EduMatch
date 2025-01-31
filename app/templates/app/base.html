@@ -1,18 +1,105 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>ANDIA</title>
-    <link rel="icon" href="{%static 'images/JAfav.ico'%}">
-    <link rel = "stylesheet" href="{%static 'css/base.css'%}">
-    <script src="{% static 'js/script.js' %}" defer></script>
+    <title>{% block title %}{{ block_title|default:"My Project" }}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+     <link rel="stylesheet" href="{% static 'css/conversation.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+
+
+
+
 </head>
 <body>
 
-{% block content %}
+    <header>
+    <nav>
+        <div class="navbar">
+            <div class="logo">
+    {% if user.is_authenticated %}
+        {% if user.role == "student" %}
+            <a href="{% url 'student-dashboard' %}">EduMatch</a>
+        {% elif user.role == "commissioner" %}
+            <a href="{% url 'commissioner-dashboard' %}">EduMatch</a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}">EduMatch</a> <!-- Redirect to login for unauthenticated users -->
+    {% endif %}
+</div>
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                &#9776; <!-- Mobile menu icon -->
+            </button>
+            <ul class="nav-links">
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}">Profile</a></li>
 
-{% endblock content %}
+        {% if user.role == "student" %}
+            <li><a href="{% url 'student-dashboard' %}">Student Dashboard</a></li>
+            <li><a href="{% url 'student-inbox' %}">Inbox</a></li>
+            <li><a href="{% url 'saved-commissions' %}">Saved Commissions</a></li>
+        {% elif user.role == "commissioner" %}
+            <li><a href="{% url 'commissioner-dashboard' %}">Commissioner Dashboard</a></li>
+            <li><a href="{% url 'commissioner-inbox' %}">Inbox</a></li>
+        {% endif %}
 
+        <li><a href="{% url 'commission-list' %}">View All Commissions</a></li>
+        <li><a href="{% url 'logout' %}" onclick="return confirmLogout()">Logout</a></li>
+<script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to log out?");
+    }
+</script>
+        <li class="user-role">
+            {% if user.role == "student" %}
+                Role: Student
+            {% elif user.role == "commissioner" %}
+                Role: Commissioner
+            {% endif %}
+        </li>
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Sign Up</a></li>
+    {% endif %}
+</ul>
+        </div>
+    </nav>
+</header>
+
+    <!-- Feedback Messages -->
+ {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                <span class="message-icon">
+                    {% if 'success' in message.tags %}
+                        ✓
+                    {% elif 'error' in message.tags %}
+                        ✖
+                    {% elif 'info' in message.tags %}
+                        ℹ
+                    {% endif %}
+                </span>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+    <div class="footer-container">
+        <p>&copy; {{ now|date:"Y" }} MyProject. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:support@myproject.com">support@myproject.com</a></p>
+    </div>
+</footer>
 </body>
 </html>

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}'s Public Profile</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/public_profile.css' %}">
+</head>
+<body>
+    <div class="container public-profile-container">
+        <h1 class="public-profile-header">{{ user.username }}'s Public Profile</h1>
+
+        <!-- Profile Picture -->
+        <div class="public-profile-picture-container">
+            {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}'s Profile Picture" class="public-profile-picture">
+            {% else %}
+                <img src="{% static 'profile_pictures/default.jpg' %}" alt="Default Profile Picture" class="public-profile-picture">
+            {% endif %}
+        </div>
+
+        <!-- Profile Information -->
+        <div class="public-profile-details">
+            <h2>About {{ user.username }}</h2>
+            <p><strong>Bio:</strong> {{ profile.bio|default:"Not provided." }}</p>
+            <p><strong>Expertise:</strong> {{ profile.expertise|default:"Not provided." }}</p>
+            <p><strong>Contact Info:</strong> {{ profile.contact_info|default:"Not provided." }}</p>
+
+            <p><strong>Joined On:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div class="public-profile-navigation">
+            <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
