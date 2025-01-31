@@ -63,7 +63,10 @@ def register(request):
             else:
                 user.role = role
                 user.profile.save()
+
             login(request, user)
+
+            messages.success(request, "Registration successful! Welcome, {}!".format(user.username))
 
             if role == 'student':
                 return redirect('student-dashboard')
@@ -71,7 +74,7 @@ def register(request):
                 return redirect('commissioner-dashboard')
             else:
                 messages.error(request, "Invalid role selection.")
-                redirect('register')
+                return redirect('register')
     else:
         form = UserRegistrationForm()
 
@@ -79,14 +82,13 @@ def register(request):
 
 def login_view(request):
     if request.method == 'POST':
-
         form = AuthenticationForm(request, data=request.POST)
 
         if form.is_valid():
-
             user = form.get_user()
             login(request, user)
 
+            messages.success(request, f"Welcome back, {user.username}! You have successfully logged in.")
 
             if user.is_student():
                 return redirect('student-dashboard')
@@ -94,14 +96,13 @@ def login_view(request):
                 return redirect('commissioner-dashboard')
             else:
                 messages.warning(request, "Your role is not recognized!")
-                return redirect('home')  # Default fallback or adjust as needed
+                return redirect('home')
         else:
             messages.error(request, 'Invalid username or password!')
     else:
         form = AuthenticationForm()
 
     return render(request, 'app/login.html', {'form': form})
-
 
 @login_required
 def profile(request):
@@ -522,6 +523,7 @@ def delete_comment(request, pk):
         return redirect(comment.commission.get_absolute_url())
 
     if request.method == 'POST':
+        comment.delete()  # Delete the comment from the database
         messages.success(request, "Your comment has been deleted.")
         return redirect(comment.commission.get_absolute_url())
 
